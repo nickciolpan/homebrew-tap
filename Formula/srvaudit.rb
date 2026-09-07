@@ -10,25 +10,25 @@ class Srvaudit < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.1/srvaudit-darwin-arm64.tar.gz"
-      sha256 "478bd54f85e88996c459beb8b348f4bff2dab520d6c0a2bbf0c9d77b2437e3c4"
+      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.2/srvaudit-darwin-arm64.tar.gz"
+      sha256 "64bb32cea316ec7f38cf45d73e19fdb04cb85cc5ef74eec5fe2e90c50c4427d1"
     end
 
     on_intel do
-      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.1/srvaudit-darwin-amd64.tar.gz"
-      sha256 "54366f66ffcc42952159647f0149c128aa61c65b68ed9867c06eb86128aecac3"
+      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.2/srvaudit-darwin-amd64.tar.gz"
+      sha256 "906aefff590bc3485cc0d9eee3a71c9b868a8aa25795e615687645ab44810831"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.1/srvaudit-linux-arm64.tar.gz"
-      sha256 "c918d542efe8c704d3117beed8a04effd3c9fd5b55f0bd7936630b87ee76954d"
+      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.2/srvaudit-linux-arm64.tar.gz"
+      sha256 "ea1ddd11f23d19465da537692ca17b9a7efcb0721438c46ddf23d406dad8dcd6"
     end
 
     on_intel do
-      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.1/srvaudit-linux-amd64.tar.gz"
-      sha256 "fffb04dcd300014180f8cd4b7823f8c83cd7f293e651c5e71291b891a071b6f5"
+      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.2/srvaudit-linux-amd64.tar.gz"
+      sha256 "d3ca54b029701de41d7944b5b7ca073f2de21e0aaa625473fb47034e702e0aed"
     end
   end
 
