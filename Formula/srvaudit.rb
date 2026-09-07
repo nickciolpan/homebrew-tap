@@ -1,52 +1,51 @@
 class Srvaudit < Formula
   desc "Terminal audit dashboard for a remote Linux server over one SSH connection"
   homepage "https://github.com/nickciolpan/srvaudit"
-  version "0.1.0"
   license "MIT"
+
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
 
   on_macos do
     on_arm do
-      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.0/srvaudit-darwin-arm64.tar.gz"
-      sha256 "5b3245d4e1ffcb2ae10836e8ca22a781d4ff130074ba1e4361d99e0d4785a271"
-
-      def install
-        bin.install "srvaudit-darwin-arm64" => "srvaudit"
-      end
+      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.1/srvaudit-darwin-arm64.tar.gz"
+      sha256 "478bd54f85e88996c459beb8b348f4bff2dab520d6c0a2bbf0c9d77b2437e3c4"
     end
 
     on_intel do
-      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.0/srvaudit-darwin-amd64.tar.gz"
-      sha256 "c03e98c484697af581b56d73b3fe467dc264ad1fd122e3273e2926ca9c8b3c8a"
-
-      def install
-        bin.install "srvaudit-darwin-amd64" => "srvaudit"
-      end
+      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.1/srvaudit-darwin-amd64.tar.gz"
+      sha256 "54366f66ffcc42952159647f0149c128aa61c65b68ed9867c06eb86128aecac3"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.0/srvaudit-linux-arm64.tar.gz"
-      sha256 "b49978fd7fc4072478330ae19bcf66ef9ef1666a59985b0a94f33fd3f51bb9ac"
-
-      def install
-        bin.install "srvaudit-linux-arm64" => "srvaudit"
-      end
+      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.1/srvaudit-linux-arm64.tar.gz"
+      sha256 "c918d542efe8c704d3117beed8a04effd3c9fd5b55f0bd7936630b87ee76954d"
     end
 
     on_intel do
-      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.0/srvaudit-linux-amd64.tar.gz"
-      sha256 "c0f4c0399d7117bafe2e140ced64bda03af014d99d74cfc5ec7e5e5f6f0394d2"
-
-      def install
-        bin.install "srvaudit-linux-amd64" => "srvaudit"
-      end
+      url "https://github.com/nickciolpan/srvaudit/releases/download/v0.1.1/srvaudit-linux-amd64.tar.gz"
+      sha256 "fffb04dcd300014180f8cd4b7823f8c83cd7f293e651c5e71291b891a071b6f5"
     end
   end
 
+  # Each tarball holds exactly one file: the platform-named binary.
+  def install
+    bin.install Dir["srvaudit-*"].first => "srvaudit"
+  end
+
   test do
-    assert_match "srvaudit 0.1.0", shell_output("#{bin}/srvaudit --version")
-    # No target and no --from-json: the CLI must refuse rather than hang.
+    assert_match "srvaudit #{version}", shell_output("#{bin}/srvaudit --version")
+
+    # With no target and no --from-json, the CLI must refuse rather than hang.
     assert_match "TARGET", shell_output("#{bin}/srvaudit 2>&1", 2)
+
+    # Rendering a saved audit needs neither network nor ssh.
+    (testpath/"audit.json").write '{"target":"web-01"}'
+    report = shell_output("#{bin}/srvaudit --from-json #{testpath}/audit.json --report text")
+    assert_match "Server audit", report
   end
 end
